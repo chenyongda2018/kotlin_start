@@ -18,8 +18,24 @@ class Test10 {
 
 }
 
+fun Test10.multiply(a: Int, b: Int) = a * b
 /**
  * 对一个类进行拓展，添加新的方法
+ * 注意:拓展函数的解析是静态的
+ * 1.拓展本身并不会真正修改目标类,也就是说并不会在这个类中插入新的属性和方法.
+ * 2.拓展函数的解析是静态的，即不支持多态，由对象的声明类型指定.
  */
-fun Test10.multiply(a: Int, b: Int) = a * b;
+open class TestA
+
+class TestB:TestA()
+
+fun TestA.a() = "a"
+fun TestB.a() = "b"
+
+/**
+ * 即使这里传入TestB类，调用的也是TestA.a()，即拓展不支持多态
+ */
+fun printTest(a: TestA) {
+    println(a.a())
+}
 
